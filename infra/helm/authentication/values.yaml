@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: asia-south1-docker.pkg.dev/sap-p2p-marketplace-dev-mg/pem-artifact-registry/authentication-service
+  repository: ARTIFACT_REGISTRY_URL
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
@@ -45,16 +45,16 @@ ingress:
   className: "nginx"
   annotations: 
     cert-manager.io/issuer: letsencrypt-nginx
-    nginx.ingress.kubernetes.io/whitelist-source-range: 125.16.91.5/32,14.140.116.145/32
+    nginx.ingress.kubernetes.io/whitelist-source-range: WHITELIST_IP_CIDR
   hosts:
-    - host: p2pmarket.dev
+    - host: HOST_NAME
       paths:
         - path: /api/v1/authentication-service
           pathType: Prefix
   tls: 
-   - secretName: p2pmarket-tls
+   - secretName: TLS_SECRET_NAME
      hosts:
-       - p2pmarket.dev
+       - HOST_NAME
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
